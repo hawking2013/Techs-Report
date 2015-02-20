@@ -1,9 +1,9 @@
 #NDK技术总结
 
-一. Java层向native层传数组
+###一. Java层向native层传数组
 Java向native传int数组，native中类型为jintArray，拿到数组metaData后，若要向该数组赋值，则需要做如下处理
 
-```Java
+```C
 jint* const ints = (*env)->GetIntArrayElements(env, metaData, 0);
 ints[0] = width;
 ints[1] = height;
@@ -41,9 +41,9 @@ ReleaseFloatArrayElements　 float
 ReleaseDoubleArrayElements　double
 ```
 
-二. native层向Java层抛异常
+###二. native层向Java层抛异常
 
-```Java
+```C
 jclass exClass = (*env)->FindClass(env, "com/dingjikerbo/inuker/ui/view/gif/GifIOException");
 jmethodID mid = (*env)->GetMethodID(env, exClass, "<init>", "(I)V");
 jobject exception = (*env)->NewObject(env, exClass, mid, errorCode);
@@ -58,4 +58,49 @@ jobject exception = (*env)->NewObject(env, exClass, mid, errorCode);
 另外，native函数要带上抛异常声明
 ```Java
 static native long openFile(int[] metaData, String filePath, boolean justDecodeMetaData) throws GifIOException;
+```
+
+###三. native指针和Java层互传
+native指针和Java层互传，首先Java层是没有指针的概念的，那么native指针只能以long的形式传回Java，当需要时，Java层再将该
+long传回native。不过要注意的是这里涉及long和指针的转换，如下
+```C
+typedef struct student {
+	char buf[120];
+	int age;
+} student;
+
+JNIEXPORT jlong JNICALL native_pointer(JNIEnv *env, jclass clazz) {
+	student *student = malloc(sizeof(student));
+	student->age = 26;
+	strcpy(student->buf, "frank");
+	return (jlong) (intptr_t) student;
+}
+
+JNIEXPORT jstring JNICALL native_get(JNIEnv *env, jclass clazz, jlong ptr) {
+	student *stu = (student *)(intptr_t) ptr;
+	return (*env)->NewStringUTF(env, stu->buf);
+}
+```
+
+```Java
+public class JniHello {
+	
+	static {
+		System.loadLibrary("hello");
+	}
+	
+	private static volatile long mPtr;
+	
+	public static native long native_pointer();
+	public static native String native_get(long ptr);
+	
+	public static long start() {
+		mPtr = native_pointer();
+		return mPtr;
+	}
+	
+	public static String getContent() {
+		return native_get(mPtr);
+	}
+}
 ```
