@@ -28,7 +28,7 @@ GetLongArrayElements　　　　long
 GetFloatArrayElements　 　　float
 GetDoubleArrayElements　　　double
 ```
-　　
+　
 释放数组元素指针的对应关系：
 
 ```Java
