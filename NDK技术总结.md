@@ -1,5 +1,6 @@
 #NDK技术总结
 
+一. Java层向native层传数组
 Java向native传int数组，native中类型为jintArray，拿到数组metaData后，若要向该数组赋值，则需要做如下处理
 
 ```Java
@@ -42,7 +43,7 @@ ReleaseFloatArrayElements　 float
 ReleaseDoubleArrayElements　double
 ```
 
-native层出现异常，需要抛给Java层，如下
+二. native层向Java层抛异常
 
 ```Java
 jclass exClass = (*env)->FindClass(env, "com/dingjikerbo/inuker/ui/view/gif/GifIOException");
