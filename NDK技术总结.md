@@ -1,5 +1,57 @@
 #NDK技术总结
 
+首先介绍jni函数注册框架，之后再描述各技术细节
+在Java中调`System.loadLibrary("hello")时会调用native层的JNI_OnLoad，注册函数可以放在这里进行
+```C
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved)
+{
+	JNIEnv* env = NULL;
+	jint result = JNI_VERSION_1_4;
+
+	if ((*vm)->GetEnv(vm, (void**) &env, JNI_VERSION_1_4) != JNI_OK) {
+		return -1;
+	}
+
+	if (!registerNatives(env)) {//注册
+		return -1;
+	}
+
+	return result;
+}
+
+char *gClassName = "com/example/jnihello/JniHello";
+
+JNINativeMethod gMethods[] = {
+	{ "native_add", "(II)I", native_add },
+	{ "native_string", "()Ljava/lang/String;", native_string },
+	{ "native_pointer", "()J", native_pointer },
+	{ "native_get", "(J)Ljava/lang/String;", native_get }
+};
+
+int registerNatives(JNIEnv* env) {
+	if (!registerNativeMethods(env, gClassName, gMethods, NELEMS(gMethods))) {
+		return JNI_FALSE;
+	}
+
+	return JNI_TRUE;
+}
+
+int registerNativeMethods(JNIEnv* env, const char* className,
+        JNINativeMethod* gMethods, int numMethods)
+{
+	jclass clazz;
+	clazz = (*env)->FindClass(env, className);
+	if (clazz == NULL) {
+		return JNI_FALSE;
+	}
+	if ((*env)->RegisterNatives(env, clazz, gMethods, numMethods) < 0) {
+		return JNI_FALSE;
+	}
+
+	return JNI_TRUE;
+}
+```
+
 ###一. Java层向native层传数组
 Java向native传int数组，native中类型为jintArray，拿到数组metaData后，若要向该数组赋值，则需要做如下处理
 
