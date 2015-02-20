@@ -1,4 +1,4 @@
-#NDK技术总结
+#Android JNI技术总结
 
 首先介绍jni函数注册框架，之后再描述各技术细节
 在Java中调`System.loadLibrary("hello")时会调用native层的JNI_OnLoad，注册函数可以放在这里进行
