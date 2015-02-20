@@ -62,7 +62,7 @@ static native long openFile(int[] metaData, String filePath, boolean justDecodeM
 
 ###三. native指针和Java层互传
 native指针和Java层互传，首先Java层是没有指针的概念的，那么native指针只能以long的形式传回Java，当需要时，Java层再将该
-long传回native。不过要注意的是这里涉及long和指针的转换，如下
+long传回native。不过要注意的是这里涉及long和指针的转换，要先通过intptr_t作类型中转，再转换成long或相应类型的指针，如下
 ```C
 typedef struct student {
 	char buf[120];
