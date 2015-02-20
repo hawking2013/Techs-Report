@@ -19,8 +19,10 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved)
 	return result;
 }
 
+// Java中Jni类完整类名
 char *gClassName = "com/example/jnihello/JniHello";
 
+// 要注册的native函数
 JNINativeMethod gMethods[] = {
 	{ "native_add", "(II)I", native_add },
 	{ "native_string", "()Ljava/lang/String;", native_string },
