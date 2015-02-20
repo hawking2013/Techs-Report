@@ -1,8 +1,8 @@
 #Android JNI技术总结
 
-首先介绍`JNI函数注册框架，之后再描述各技术细节
+首先介绍`JNI`函数注册框架，之后再描述各技术细节
 
-在Java中调`System.loadLibrary("hello")时会调用native层的JNI_OnLoad，注册函数可以放在这里进行
+在Java中调`System.loadLibrary("hello")`时会调用native层的`JNI_OnLoad`，注册函数可以放在这里进行
 ```C
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved)
 {
