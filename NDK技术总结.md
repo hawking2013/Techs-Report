@@ -52,7 +52,9 @@ jobject exception = (*env)->NewObject(env, exClass, mid, errorCode);
 
 这里要抛出GifIOException，所以在Java中要定义好该异常，并注意混淆时要排除该类，并及时catch住。
 这里逻辑很简单，首先找到Java层异常类，然后调用构造函数新建一个异常对象，最后抛出异常。
+
 注意，构造函数名为<init>，签名中返回值为V，表示void。NewObject中传入构造函数id及对应参数。
+
 另外，native函数要带上抛异常声明
 ```Java
 static native long openFile(int[] metaData, String filePath, boolean justDecodeMetaData) throws GifIOException;
