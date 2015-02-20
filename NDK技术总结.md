@@ -28,9 +28,7 @@ GetLongArrayElements　　　　long
 GetFloatArrayElements　 　　float
 GetDoubleArrayElements　　　double
 ```
-　
 释放数组元素指针的对应关系：
-
 ```Java
 函数　　　　　　　　　　　　数组类型
 ReleaseBooleanArrayElements boolean
