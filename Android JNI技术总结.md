@@ -162,8 +162,10 @@ public class JniHello {
 ###四. jni中引用的java对象的生命周期
 Java对象作为引用被传递到native层，这些对象引用都有其生命周期。生命周期分为:全局引用，局部引用、弱全局引用。
 
-1、`Local Reference` 局部引用，
-函数调用时传入jobject或者jni函数创建的jobejct，都是局部引用.
+1、`Local Reference` 局部引用
+
+函数调用时传入jobject或者jni函数创建的jobejct，都是局部引用。
+
 其特点就是一旦JNI层函数返回，jobject就被垃圾回收掉，所以需要注意其生命周期。可以强制调用DeleteLocalRef进行立即回收。
 ```C
 jstring pathStr = env->NewStringUTF(path)
@@ -171,11 +173,17 @@ jstring pathStr = env->NewStringUTF(path)
 env->DeleteLocalRef(pathStr);
 ```
 
-2、`Global Reference` 全局引用 ，这种对象如不主动释放，它永远都不会被垃圾回收
+2、`Global Reference` 全局引用
+
+这种对象如不主动释放，它永远都不会被垃圾回收
+
 创建： `env->NewGlobalRef(obj)`
+
 释放： `env->DeleteGlobalRef(obj)`
+
 若要在某个 Native 代码返回后，还希望能继续使用 JVM 提供的参数, 或者是过程中调用 JNI 函数的返回值（比如 g_mid）， 则将该对象设为 global reference，以后只能使用这个 global reference；若不是一个 jobject，则无需这么做。
 
 3、`Weak Global Reference` 弱全局引用
+
 一种特殊的 Global Reference ,在运行过程中可能被垃圾回收掉，所以使用时请务必注意其生命周期及随时可能被垃圾回收掉,比如内存不足时。使用前可以利用JNIEnv的 IsSameObject 进行判定它是否被回收
 `(*env)->IsSameObject(env, wobj, NULL)`
