@@ -56,7 +56,9 @@ int registerNativeMethods(JNIEnv* env, const char* className,
 ```
 
 ###一. JNI调用Java对象
-JNI提供的功能之一是在本地代码中使用Java对象。包括：创建一个java类对象和通过函数传递一个java对象。创建一个java类对象，首先需要得到得到使用FindClass/GetObjectClass函数得到该类，然后使用GetMethodID方法得到该类的方法id,然后调用该函数。
+JNI提供的功能之一是在本地代码中使用Java对象。包括：创建一个java类对象和通过函数传递一个java对象。
+
+创建一个java类对象，首先需要得到得到使用FindClass/GetObjectClass函数得到该类，然后使用GetMethodID方法得到该类的方法id,然后调用该函数。
 
 Java 和 Native 代码之间函数调用时，如果是简单类型，也就是内置类型，比如 int, char 等是值传递（pass by value），而其它 Java 对象都是引用传递（pass by reference），这些对象引用由 JVM 传给 Native 代码。
 
