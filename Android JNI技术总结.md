@@ -63,16 +63,27 @@ JNI提供的功能之一是在本地代码中使用Java对象。包括：创建�
 Java 和 Native 代码之间函数调用时，如果是简单类型，也就是内置类型，比如 int, char 等是值传递（pass by value），而其它 Java 对象都是引用传递（pass by reference），这些对象引用由 JVM 传给 Native 代码。
 
 在本地方法中调用Java对象的方法的步骤：
+
 1）获取你需要访问的Java对象的类
+
 FindClass通过传java中完整的类名来查找java的class
+
 GetObjectClass通过传入jni中的一个java的引用来获取该引用的类型。
+
 他们之间的区别是，前者要求你必须知道完整的类名，后者要求在Jni有一个类的引用。
+
 2）获取MethodID,调用方法
+
 GetMethodID 得到一个实例的方法的ID
+
 GetStaticMethodID 得到一个静态方法的ID
+
 3)获取对象的属性
+
 GetFieldID 得到一个实例的域的ID
+
 GetStaticFieldID 得到一个静态的域的ID
+
 JNI通过ID识别域和方法，一个域或方法的ID是任何处理域和方法的函数的必须参数。
 
 ###二. jni中引用的java对象的生命周期
