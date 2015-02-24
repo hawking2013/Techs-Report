@@ -84,7 +84,7 @@ Java 和 Native 代码之间函数调用时，如果是简单类型，也就是�
 
 `GetStaticFieldID` 得到一个静态的域的ID
 
-###二. jni中引用的java对象的生命周期
+###二. JNI中引用的Java对象的生命周期
 Java对象作为引用被传递到native层，这些对象引用都有其生命周期。生命周期分为:全局引用，局部引用、弱全局引用。
 
 1、`Local Reference` 局部引用
