@@ -1,0 +1,16 @@
+{
+  "id": "com.example.testa.20130703.1",
+  "files": [{
+    "id": "com.example.testa.20130703.1",
+    "md5": "69d3d81fa8cc5f05f1daab16dae89f4c",
+    "url": "https://github.com/dingjikerbo/blog/raw/master/files/TestA.apk"
+  }],
+  "fragments": [
+    {
+      "host": "testfragment",
+      "name": "com.example.testa.TestFragment",
+      "code": "com.example.testa.20130703.1"
+    },
+  ],
+  "version": "20130703.1"
+}
