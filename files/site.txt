@@ -2,7 +2,7 @@
   "id": "com.example.testa.20130703.1",
   "files": [{
     "id": "com.example.testa.20130703.1",
-    "md5": "69d3d81fa8cc5f05f1daab16dae89f4c",
+    "md5": "fd3867c1f9e6daf1619fc8b404ca8802",
     "url": "https://github.com/dingjikerbo/blog/raw/master/files/TestA.apk"
   }],
   "fragments": [
