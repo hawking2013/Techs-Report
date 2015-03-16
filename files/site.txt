@@ -10,7 +10,7 @@
       "host": "testfragment",
       "name": "com.example.testa.TestFragment",
       "code": "com.example.testa.20130703.1"
-    },
+    }
   ],
   "version": "20130703.1"
 }
