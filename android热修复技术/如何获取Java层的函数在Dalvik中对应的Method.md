@@ -4,7 +4,9 @@
 
 首先提出一个猜想，Java层通过反射可以获取函数的Method，而这个Method是否和Dalvik中的Method是一回事呢？
 
-新建一个工程来验证一下，分别通过三种方式来获取Method：通过反射、通过slot、通过函数签名。
+新建一个工程来验证一下（[工程下载地址](https://github.com/dingjikerbo/blog/blob/master/android%E7%83%AD%E4%BF%AE%E5%A4%8D%E6%8A%80%E6%9C%AF/files/MyApplication.tar.gz)）
+
+分别通过三种方式来获取Method：通过反射、通过slot、通过函数签名。
 
 首先新建一个类Test.class，如下
 
@@ -267,9 +269,6 @@ static int methodToSlot(const Method* meth)
 
 1. 传入函数名和函数签名，然后在Native层调用getMethodID获取到jmethodID，但是函数签名得我们自己拼很麻烦。
 2. 传入函数所在的Class和对应的slot，然后在Native层调用dvmSlotToMethod即可，slot可以通过在Java层反射来获取
-
-
-
 
 
 
