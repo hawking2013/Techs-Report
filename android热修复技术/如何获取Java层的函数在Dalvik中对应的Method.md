@@ -1,3 +1,5 @@
+##如何获取Java层的函数在Dalvik中对应的Method##
+
 为什么要获取Java层的函数在Dalvik中对应的Method数据结构呢？
 
 因为要Hook Java层的某个函数，首先得获取该函数在Dalvik中对应的Method数据结构，然后修改其函数指针指向另外一个函数，从而达到Hook的效果。
