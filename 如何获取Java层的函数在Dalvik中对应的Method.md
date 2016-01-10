@@ -6,7 +6,7 @@
 
 首先提出一个猜想，Java层通过反射可以获取函数的Method，而这个Method是否和Dalvik中的Method是一回事呢？
 
-新建一个工程来验证一下（[工程下载地址](https://github.com/dingjikerbo/blog/blob/master/android%E7%83%AD%E4%BF%AE%E5%A4%8D%E6%8A%80%E6%9C%AF/files/MyApplication.tar.gz)）
+新建一个工程来验证一下（[工程下载地址](https://github.com/dingjikerbo/Techs-Report/blob/master/files/MyApplication.tar.gz)）
 
 分别通过三种方式来获取Method：通过反射、通过slot、通过函数签名。
 
