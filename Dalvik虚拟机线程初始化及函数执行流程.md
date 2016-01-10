@@ -1,3 +1,6 @@
+Dalvik虚拟机线程初始化及函数执行流程
+---------------------------------------------------
+
 研究dalvik线程创建，只因为想搞清楚dalvik函数执行流程，那么这个流程的开端在哪里呢？我想到了线程，因为每个线程都有自己的Runnable，而这个入口一定就是Runnable开始执行的地方。带着这个疑问，我展开了一系列研究。
 
 首先，Thread开始执行时，要调用Thread.start()，如下
@@ -436,7 +439,7 @@ static bool dvmPushInterpFrame(Thread* self, const Method* method)
 
 这里重点讨论Interp Frame，即Interpret Function的Frame，如下：
 
-![这里写图片描述](http://img.blog.csdn.net/20160110170437300)
+![这里写图片描述](https://github.com/dingjikerbo/Techs-Report/blob/master/images/dalvik_stack.jpg)
 
 
 这里分配了两个frame，一个是break frame，一个是normal frame。代码中对break frame的解释如下：
@@ -688,7 +691,7 @@ invokeMethod:
 
 将参数拷贝到outs中，首先我们要对栈帧结构比较熟悉，我给栈帧的图再贴一遍
 
-![这里写图片描述](http://img.blog.csdn.net/20160110170715184)
+![这里写图片描述](https://github.com/dingjikerbo/Techs-Report/blob/master/images/dalvik_stack.jpg)
 
 
 对着图看，当前栈帧在current fp处，而outs在最底部，要调用的函数参数都作为局部变量在locals处，所以这里要做的是将locals处的参数拷贝到outs处，为什么要这么做呢？其实这里非常巧妙，因为这里的outs就是接下来要调用的函数的ins，两个刚好重合了。为什么这么说呢？因为outs拷贝后，就是初始化栈帧，在save block下偏移methodToCall->registersSize作为新栈的fp，而这个registersSize就包括两部分，locals + ins。其中ins刚好和outs重合，这样之后就不用再次拷贝一次了。
