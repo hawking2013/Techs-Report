@@ -2,7 +2,9 @@ Android资源的热修复
 -----------------------------------------------------------------------------------------
 
 热修复中可能会涉及到资源文件的替换，有两个问题：
+
 一、到底能不能替换？这里是将主APP中的资源替换成Patch apk中的资源，可以实现么？
+
 二、怎么替换，会不会有资源id冲突的问题？
 
 本章就来讨论这两个问题。
@@ -44,7 +46,9 @@ private Resources createResources(AssetManager assetManager) {
 可见这里专门为Patch apk创建了独立的AssetManager，并将这个apk的路径添加到AssetManager的AssetPath路径集合中。
 
 这里有两个问题：
+
 1. 主APP和Patch加载资源用的是不同的AssetManager和Resources，如果主APP和Patch Apk中的资源id有冲突，那么加载资源时会不会串了？
+
 2. 同一个AssetManager下可以添加多个资源包，假如这些资源包之间存在相同的资源id，加载资源时会不会串呢？
 
 要研究这两个问题，我们需要先了解一下AssetManager的实现以及资源加载机制。
