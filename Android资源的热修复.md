@@ -12,6 +12,7 @@ Android资源的热修复
 加载patch apk时，和加载插件类似，可以参考我之前的两篇文章：
 
 [http://blog.csdn.net/dingjikerbo/article/details/47757511](http://blog.csdn.net/dingjikerbo/article/details/47757511)
+
 [http://blog.csdn.net/dingjikerbo/article/details/47783411](http://blog.csdn.net/dingjikerbo/article/details/47783411)
 
 如下
