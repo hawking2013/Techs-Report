@@ -58,8 +58,11 @@ private Resources createResources(AssetManager assetManager) {
 当然如果采用的是不同的AssetManager去加载资源包里的资源就不会有这种问题了，因为索引表都不一样，即便key一样也没有关系。
 
 接下来，我们将过一下AssetManager的代码，这里只是为了了解资源加载的大致流程，所以会略去一些细节，如果想更深入了解，可以参考如下几篇文章：
+
 [Android应用程序资源的编译和打包过程分析](http://blog.csdn.net/luoshengyang/article/details/8744683)
+
 [Android应用程序资源管理器（Asset Manager）的创建过程分析](http://blog.csdn.net/luoshengyang/article/details/8791064)
+
 [Android应用程序资源的查找过程分析](http://blog.csdn.net/luoshengyang/article/details/8806798)
 
 ```
@@ -239,9 +242,13 @@ static jint android_content_AssetManager_loadResourceValue(JNIEnv* env, jobject 
 ```
 
 看起来貌似有点复杂，调了不少函数，不过没关系，我们耐心点分析。这个函数主要做了四件事：
+
 1. 通过assetManagerForJavaObject拿到AssetManager对象。
+
 2. 通过am->getResources()获取AssetManager中的ResTable。
+
 3. 调用ResTable的getResource函数获取资源相关的索引和配置信息。
+
 4. 调用copyValue将一些资源属性拷贝到TypedValue中。
 
 先来看看am->getResources()的实现如下：
@@ -442,7 +449,9 @@ Drawable loadDrawable(TypedValue value, int id)
 这个函数首先从缓存中查找资源，如果找到了就返回，找不到的话就去打开资源文件读取资源，读出来后放到缓存中，逻辑很简单，只不过不同的资源处理方式不同而已。
 
 总结一下，整个资源加载的流程：
+
 一、获取资源时首先看缓存中有不有，如果有就直接返回，没有就去加载资源
+
 二、加载资源时首先看资源的索引表是否建立了，如果建立了就直接根据索引和配置信息去加载资源，否则就解析并建立资源索引
 
 要注意的是：
@@ -619,7 +628,9 @@ private static void hookLoadPatch(PatchCallback callback) {
 ```
 
 这个代码稍微麻烦点，不过主要做了两件事：
+
 一、用DexClassLoader加载patch apk，生成对应的Resources便于之后加载patch apk中的资源
+
 二、解析出patch apk中所有的补丁类，补丁类都是继承自Patch类。所有补丁类都会加到一个集合中。
 
 接下来，就是遍历所有的补丁类，依次调用他们的handlePatch接口来打补丁。
